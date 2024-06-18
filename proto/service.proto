@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package proto;
+
+option go_package = "./";
+
+service YadroService {
+  rpc ChangeHostName (ChangeHostNameRequest) returns (ChangeHostNameResponse) {
+    option (google.api.http) = {
+      post: "/api/change-hostname"
+      body: "*"
+    };
+  }
+  rpc ModifyDNS (ModifyDNSRequest) returns (ModifyDNSResponse) {
+    option (google.api.http) = {
+      post: "/api/modify-dns"
+      body: "*"
+    };
+  }
+  rpc ListDNS (ListDNSRequest) returns (ListDNSResponse) {
+    option (google.api.http) = {
+      get: "/api/list-dns"
+    };
+  }
+}
+
+message ChangeHostNameRequest {
+  string hostname = 1;
+}
+
+message ChangeHostNameResponse {
+  string message = 1;
+}
+
+message ModifyDNSRequest {
+  string action = 1;
+  string ip = 2;
+}
+
+message ModifyDNSResponse {
+  string message = 1;
+}
+
+message ListDNSRequest {}
+
+message ListDNSResponse {
+  repeated string dns_list = 1;
+}
